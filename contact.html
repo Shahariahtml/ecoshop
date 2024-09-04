@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form #04</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+     
+        
+       
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff2bf1d9, #40cbffd9);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top:0px;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        header:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style-type: none;
+        }
+
+        nav ul li {
+            margin-left: 1rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #44bd32;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff80dd;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+.contact-form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: true;
+            border-color:#44bd32;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            box-shadow: 0 0 10px rgba(68, 189, 50, 0.5);
+        }
+
+        .contact-form button {
+            background-color: #44bd32;
+            color: #fff;
+            border: true;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border-color:#44bd32;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #3a9e2a;
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body>
+    
+    
+    <header>
+        <nav>
+            <div class="logo">Eco-Shop</div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html">Products</a></li>
+                <li><a href="about-us.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+
+            </ul>
+        </nav>
+    </header>
+
+    
+     <section id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-content">
+            <p>Have any questions or concerns? Reach out to us using the form below:</p>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+</body>
+</html>

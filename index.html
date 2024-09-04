@@ -1,0 +1,622 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco-Friendly E-Commerce Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff2bf1d9, #40cbffd9);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        header:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style-type: none;
+        }
+
+        nav ul li {
+            margin-left: 1rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #44bd32;
+        }
+
+        section {
+            padding: 4rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        .parallax {
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEgiNBxYF8dsNEGKbC4XHzM8zwdMNoX8uKew&usqp=CAU');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .hero-text {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            border-radius: 10px;
+            animation: fadeIn 1s ease;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            width: 250px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            animation: fadeIn 1s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.1);
+        }
+
+        .card h3 {
+            margin-top: 1rem;
+        }
+
+        .card p {
+            margin-top: 0.5rem;
+        }
+
+        .about-content, .contact-content {
+            max-width: 800px;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: true;
+            border-color:#44bd32;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            box-shadow: 0 0 10px rgba(68, 189, 50, 0.5);
+        }
+
+        .contact-form button {
+            background-color: #44bd32;
+            color: #fff;
+            border: true;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border-color:#44bd32;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #3a9e2a;
+            transform: scale(1.05);
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(225, 225, 225, 0.1);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .popup-content {
+            background-color:#0c00349b;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            transform: scale(0.7);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .popup-overlay.active .popup-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #fff;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .popup-close:hover {
+            color: #44bd32;
+            transform: rotate(90deg);
+        }
+
+        .popup-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .popup-image:hover {
+            transform: scale(1.05);
+        }
+
+        .popup-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #90ff55;
+        }
+
+        .popup-description {
+            margin-bottom: 1rem;
+            color: #ffffea;
+        }
+
+        .popup-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #90ff55;
+            margin-bottom: 1rem;
+        }
+
+        .popup-buy {
+            background-color: #44bd32;
+            border: none;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .popup-buy:hover {
+            background-color: #3a9e2a;
+            transform: scale(1.05);
+        }
+
+        .purchase-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .purchase-form input {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: true;
+            background:#ffffff;
+            border-color:#65ff00;
+            box-shadow:#ff00f1;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .purchase-form input:focus {
+            box-shadow: 0 0 10px rgba(101, 255, 0, 0.5);
+        }
+
+        .purchase-form button {
+            background-color: #44bd32;
+            color: #fff;
+            border: true;
+            border-color:#65ff00;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .purchase-form button:hover {
+            background-color: #ff6915;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff80dd;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* New styles for search bar */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.5rem;
+            border-radius: 20px;
+            border: 2px solid #44bd32;
+            font-size: 1rem;
+            outline: none;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .search-bar:focus {
+            box-shadow: 0 0 10px rgba(68, 189, 50, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Eco-Shop</div>
+            <ul>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#products" class="nav-link">Products</a></li>
+                <li><a href="about-us.html" class="">About</a></li>
+                <li><a href="contact.html" class="">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="parallax">
+        <div class="hero-text">
+            <h1>Welcome to Eco-Shop</h1>
+            <p>Discover eco-friendly products for a sustainable lifestyle!</p>
+        </div>
+    </section>
+
+    <section id="products">
+        <h2>Our Sustainable Products</h2>
+        <div class="search-container">
+            <input type="text" id="search-bar" class="search-bar" placeholder="Search for products...">
+        </div>
+        <div class="products" id="product-container">
+            <!-- Products will be dynamically inserted here -->
+        </div>
+    </section>
+
+    <section id="about" class="parallax">
+        <div class="about-content">
+            <h2>About Us</h2>
+            <p>Eco-Shop is your one-stop destination for all your eco-friendly shopping needs. We offer a wide range of sustainable, high-quality products at competitive prices. Our mission is to provide an exceptional shopping experience while promoting environmental consciousness.</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-content">
+            <p>Have any questions or concerns? Reach out to us using the form below:</p>
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="popup-overlay" id="product-popup">
+        <div class="popup-content">
+            <span class="popup-close">&times;</span>
+            <img class="popup-image" src="" alt="Product Image">
+            <h3 class="popup-title"></h3>
+            <p class="popup-description"></p>
+            <p class="popup-price"></p>
+            <button class="popup-buy">Buy Now</button>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="purchase-popup">
+        <div class="popup-content">
+            <span class="popup-close">&times;</span>
+            <h3 class="popup-title">Purchase Form</h3>
+            <form class="purchase-form" id="quoteForm" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="dbf36f00-5696-49cb-abae-61ae931fbd57">
+                <input type="text"    id="product-name"                                name="product-name" readonly>
+                <input type="text"    id="Name" placeholder="Your Name"                name="Name" required>
+                <input type="tel"     id="Mobile Number" placeholder="Mobile Number"   name="Mobile Number" required>
+                <input type="address"     id="Address" placeholder=" Your Address"   name="Address" required>
+                <input type="email"   id="Email" placeholder="Email (optional)"        name="Email">
+                <input type="hidden"  id="product-id"                                  name="product-id">
+                <input type="hidden" name="redirect" value="https://hello.app">
+                <button type="submit" id="submit-btn">Submit Order (COD)</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Product data
+        const products = [
+            {
+                id: 1,
+                name: "Eco-Friendly Water Bottle",
+                description: "Reusable, BPA-free water bottle made from recycled materials.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtNRQX15C4gUEQHArSOMxLHGdOmimM4LLkoVdzkLTrZHV75y2isEOuCLg&s=10",
+                price: 19.99,
+                tags: ["water bottle", "reusable", "eco-friendly", "recycled"]
+            },
+            {
+                id: 2,
+                name: "Organic Cotton T-Shirt",
+                description: "Soft, comfortable t-shirt made from 100% organic cotton.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQssq1c7TsG4jWyNqueFz3ndJ1oziCMjwzfrA&usqp=CAU",
+                price: 24.99,
+                tags: ["t-shirt", "organic", "cotton", "clothing"]
+            },
+            {
+                id: 3,
+                name: "Bamboo Toothbrush Set",
+                description: "Set of 4 biodegradable toothbrushes with bamboo handles.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3qkboLEzQlNRxHJhIzZGTOwadct-ShjKWAg&usqp=CAU",
+                price: 29.99,
+                tags: ["toothbrush", "bamboo", "biodegradable", "set"]
+            },
+            {
+                id: 4,
+                name: "Solar-Powered Charger",
+                description: "Portable solar charger for smartphones and other USB devices.",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCr6I-WpLmYsaad9zoLPPbrwrzYbCrMqP2caxguNmDz4g2cyypJpQ_qJhc&s=10",
+                price: 34.99,
+                tags: ["solar", "charger", "portable", "USB"]
+            }
+        ];
+
+        // Function to create product cards
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.setAttribute('data-product-id', product.id);
+            card.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <h3>${product.name}</h3>
+                <p>${product.description}</p>
+                <p>$${product.price.toFixed(2)}</p>
+            `;
+            return card;
+        }
+
+        // Function to render products
+        function renderProducts(productsToRender) {
+            const productContainer = document.getElementById('product-container');
+            productContainer.innerHTML = ''; // Clear existing products
+            productsToRender.forEach(product => {
+                const card = createProductCard(product);
+                productContainer.appendChild(card);
+            });
+        }
+
+        // Render all products on page load
+        renderProducts(products);
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 60, // Adjust for header height
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Parallax effect
+        window.addEventListener('scroll', function() {
+            let scrollPosition = window.pageYOffset;
+            document.querySelectorAll('.parallax').forEach(function(section) {
+                section.style.backgroundPositionY = scrollPosition * 0.7 + 'px';
+            });
+        });
+
+        const productPopup = document.getElementById('product-popup');
+        const purchasePopup = document.getElementById('purchase-popup');
+        const popupImage = document.querySelector('.popup-image');
+        const popupTitle = document.querySelector('.popup-title');
+        const popupDescription = document.querySelector('.popup-description');
+        const popupPrice = document.querySelector('.popup-price');
+        const popupBuy = document.querySelector('.popup-buy');
+        const productNameInput = document.getElementById('product-name');
+        const productIdInput = document.getElementById('product-id');
+
+        function showPopup(popup) {
+            popup.style.display = 'flex';
+            setTimeout(() => {
+                popup.classList.add('active');
+            }, 10);
+        }
+
+        function hidePopup(popup) {
+            popup.classList.remove('active');
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 300);
+        }
+
+        document.getElementById('product-container').addEventListener('click', function(e) {
+            const card = e.target.closest('.card');
+            if (card) {
+                const productId = parseInt(card.getAttribute('data-product-id'));
+                const product = products.find(p => p.id === productId);
+
+                popupImage.src = product.image;
+                popupImage.alt = product.name;
+                popupTitle.textContent = product.name;
+                popupDescription.textContent = product.description;
+                popupPrice.textContent = `$${product.price.toFixed(2)}`;
+
+                showPopup(productPopup);
+            }
+        });
+
+        document.querySelectorAll('.popup-close').forEach(closeBtn => {
+            closeBtn.addEventListener('click', function() {
+                hidePopup(this.closest('.popup-overlay'));
+            });
+        });
+
+        popupBuy.addEventListener('click', function() {
+            hidePopup(productPopup);
+            productNameInput.value = popupTitle.textContent;
+            productIdInput.value = products.find(p => p.name === popupTitle.textContent).id;
+            showPopup(purchasePopup);
+        });
+
+        document.querySelectorAll('.popup-overlay').forEach(overlay => {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    hidePopup(overlay);
+                }
+            });
+        });
+
+        // Search functionality
+        const searchBar = document.getElementById('search-bar');
+
+        searchBar.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const filteredProducts = products.filter(product => {
+                const searchString = `${product.name} ${product.description} ${product.tags.join(' ')}`.toLowerCase();
+                return searchString.includes(searchTerm);
+            });
+            renderProducts(filteredProducts);
+        });
+    </script>
+</body>
+</html>
